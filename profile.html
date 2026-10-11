@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile — Lumora Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">◈</span><span class="logo-text">LUMORA</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Store</a></li>
+                <li><a href="cart.html" class="nav-link">Cart <span class="cart-count" id="cartCount">0</span></a></li>
+                <span id="authLinks"></span>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+
+    <div class="profile-container" id="profileContainer">
+        <!-- Profile content rendered by JS -->
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">◈</span><span class="logo-text">LUMORA</span></a>
+                <p>Tech essentials for the next generation.</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Lumora. All rights reserved.</p></div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Profile page specific
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById("profileContainer");
+            if (!container) return;
+
+            if (!currentUser) {
+                container.innerHTML = '<div class="empty-cart"><span class="empty-cart-icon">👤</span><h2>Please sign in to view your profile</h2><a href="index.html" class="btn btn-primary" style="margin-top:1rem">Go to Store</a></div>';
+                return;
+            }
+
+            const userOrders = orders.filter(o => o.userId === currentUser.id);
+
+            container.innerHTML = `
+                <div class="profile-header">
+                    <div class="profile-avatar">◈</div>
+                    <h1>${currentUser.name}</h1>
+                    <p>${currentUser.email}</p>
+                </div>
+                <div class="profile-section">
+                    <h2>Saved Payment</h2>
+                    <form id="saveUpiForm" class="order-form" style="margin-top:0.5rem">
+                        <div class="form-group">
+                            <label for="profileUpi">UPI ID</label>
+                            <input type="text" id="profileUpi" placeholder="yourname@bank" value="">
+                            <small>Saved for faster checkout next time</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save UPI</button>
+                    </form>
+                </div>
+                <div class="profile-section">
+                    <h2>My Orders</h2>
+                    ${userOrders.length === 0 ? '<p class="no-orders">No orders yet. Start shopping!</p>' : ""}
+                    ${userOrders.map(order => `
+                        <div class="profile-order">
+                            <div class="profile-order-header">
+                                <span class="order-id">${order.id}</span>
+                                <span class="order-status status-${order.status}">${order.status.replace(/_/g, " ")}</span>
+                            </div>
+                            <div class="profile-order-items">
+                                ${order.items.map(i => `<p>${i.name} × ${i.quantity}</p>`).join("")}
+                            </div>
+                            <div class="profile-order-total">
+                                <p><strong>Total: ₹${order.total.toFixed(2)}</strong></p>
+                                <p>${order.customer.city}, ${order.customer.state}</p>
+                            </div>
+                        </div>
+                    `).join("")}
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

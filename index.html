@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumora Store — Tech Essentials</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">◈</span><span class="logo-text">LUMORA</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active">Store</a></li>
+                <li><a href="cart.html" class="nav-link">Cart <span class="cart-count" id="cartCount">0</span></a></li>
+                <li><a href="#" class="nav-link" id="signInLink">Sign In</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">By Lumora • Est. 2026</div>
+            <h1 class="hero-title">Tech Essentials<br>For Your Setup</h1>
+            <p class="hero-subtitle">Curated phone cases, LED lights, stickers & desk accessories. Delivered to your doorstep.</p>
+            <div class="hero-cta">
+                <a href="#products" class="btn btn-primary">Shop Now</a>
+                <a href="#categories" class="btn btn-secondary">Browse Categories</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
+    </section>
+    <section class="products-section" id="products">
+        <div class="section-header">
+            <h2 class="section-title">All Products</h2>
+            <p class="section-subtitle">Handpicked tech essentials</p>
+        </div>
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="Phone Cases">Phone Cases</button>
+            <button class="filter-btn" data-filter="Stickers">Stickers</button>
+            <button class="filter-btn" data-filter="LED Lights">LED Lights</button>
+            <button class="filter-btn" data-filter="Desk Accessories">Desk Accessories</button>
+            <div class="search-box"><input type="text" placeholder="Search products..."></div>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+    </section>
+    <section class="categories-section" id="categories">
+        <div class="section-header"><h2 class="section-title">Categories</h2></div>
+        <div class="category-grid">
+            <a href="#products" class="category-card"><div class="category-icon">📱</div><h3>Phone Cases</h3><p>Cyberpunk & aesthetic designs</p></a>
+            <a href="#products" class="category-card"><div class="category-icon">✨</div><h3>Stickers</h3><p>Waterproof vinyl packs</p></a>
+            <a href="#products" class="category-card"><div class="category-icon">💡</div><h3>LED Lights</h3><p>RGB strips & neon signs</p></a>
+            <a href="#products" class="category-card"><div class="category-icon">🖥️</div><h3>Desk Accessories</h3><p>Mats, stands & organizers</p></a>
+        </div>
+    </section>
+    <section class="how-it-works">
+        <div class="section-header"><h2 class="section-title">How It Works</h2></div>
+        <div class="steps-grid">
+            <div class="step"><div class="step-number">1</div><h3>Fill Details</h3><p>Pick your favorites and enter your delivery information.</p></div>
+            <div class="step"><div class="step-number">2</div><h3>Pay via UPI</h3><p>Scan the QR code and pay securely with Fampay or any UPI app.</p></div>
+            <div class="step"><div class="step-number">3</div><h3>Get Delivered</h3><p>We process and ship your order to your doorstep.</p></div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">◈</span><span class="logo-text">LUMORA</span></a>
+                <p>Tech essentials for the next generation.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col"><h4>Shop</h4><a href="#products">All Products</a><a href="#products">Phone Cases</a><a href="#products">Stickers</a><a href="#products">LED Lights</a></div>
+                <div class="footer-col"><h4>Help</h4><a href="#">Shipping Info</a><a href="#">Returns</a><a href="#">Contact Us</a><a href="#">FAQ</a></div>
+                <div class="footer-col"><h4>Follow</h4><a href="https://instagram.com/lumora.main5" target="_blank">Instagram</a><a href="#">Telegram</a><a href="#">WhatsApp</a></div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Lumora. All rights reserved.</p></div>
+    </footer>
+    <div class="modal-overlay" id="productModal"><div class="modal" id="productModalContent"></div></div>
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal modal-large">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 class="modal-title">Checkout</h2>
+            <div id="checkoutFormStep">
+                <form id="orderForm" class="order-form">
+                    <div class="form-group"><label for="name">Full Name *</label><input type="text" id="name" name="name" required placeholder="Enter your full name"></div>
+                    <div class="form-row">
+                        <div class="form-group"><label for="phone">Phone Number *</label><input type="tel" id="phone" name="phone" required placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10"></div>
+                        <div class="form-group"><label for="email">Email (optional)</label><input type="email" id="email" name="email" placeholder="your@email.com"></div>
+                    </div>
+                    <div class="form-group"><label for="address">Address *</label><textarea id="address" name="address" required placeholder="House/Flat no., Street, Area" rows="2"></textarea></div>
+                    <div class="form-row">
+                        <div class="form-group"><label for="city">City *</label><input type="text" id="city" name="city" required placeholder="City"></div>
+                        <div class="form-group"><label for="state">State *</label><input type="text" id="state" name="state" required placeholder="State"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label for="pincode">PIN Code *</label><input type="text" id="pincode" name="pincode" required placeholder="6-digit PIN" pattern="[0-9]{6}" maxlength="6"></div>
+                        <div class="form-group"><label for="landmark">Landmark (optional)</label><input type="text" id="landmark" name="landmark" placeholder="Near..."></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-btn">Proceed to Payment</button>
+                </form>
+            </div>
+            <div id="checkoutPaymentStep" style="display:none"><div id="paymentSection"></div></div>
+        </div>
+    </div>
+    <div id="orderConfirmation" style="display:none"></div>
+
+    <div class="modal-overlay" id="signInModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 class="modal-title">Sign In</h2>
+            <form id="loginForm" class="order-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary submit-btn">Sign In</button>
+                <p style="text-align:center;margin-top:1rem;font-size:0.85rem">Don't have an account? <a href="#" id="showSignup" style="color:var(--text)">Sign Up</a></p>
+            </form>
+            <form id="signupForm" class="order-form" style="display:none">
+                <h2 class="modal-title" style="margin-bottom:1rem">Sign Up</h2>
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required placeholder="Min 6 characters">
+                </div>
+                <button type="submit" class="btn btn-primary submit-btn">Create Account</button>
+                <p style="text-align:center;margin-top:1rem;font-size:0.85rem">Already have an account? <a href="#" id="showLogin" style="color:var(--text)">Sign In</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

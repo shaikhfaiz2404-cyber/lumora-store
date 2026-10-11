@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Lumora Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">◈</span><span class="logo-text">LUMORA</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Store</a></li>
+                <li><a href="cart.html" class="nav-link">Cart <span class="cart-count" id="cartCount">0</span></a></li>
+                <span id="authLinks"></span>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+    <div class="admin-page">
+        <div class="admin-header">
+            <h1>Order Management</h1>
+            <p>View new orders, proceed to marketplace, and track shipments.</p>
+        </div>
+        <div id="adminContent"></div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><span class="logo-icon">◈</span><span class="logo-text">LUMORA</span></a>
+                <p>Tech essentials for the next generation.</p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Lumora. All rights reserved.</p></div>
+    </footer>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
