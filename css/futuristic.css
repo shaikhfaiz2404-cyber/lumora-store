@@ -1,0 +1,444 @@
+/* ============================================
+   LUMORA STORE — FUTURISTIC 3D MOTION SYSTEM
+   ============================================ */
+
+/* --- Theme Override: Dark Cyberpunk --- */
+:root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text-secondary: #a0a0b8;
+    --text-dim: #606078;
+    --accent: #00f0ff;
+    --accent-hover: #00c8d4;
+    --accent-light: #1a2a3a;
+    --success: #00ff88;
+    --danger: #ff3366;
+    --warning: #ffaa00;
+    --glow: 0 0 20px rgba(0, 240, 255, 0.3);
+    --glow-strong: 0 0 40px rgba(0, 240, 255, 0.5);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 8px 40px rgba(0, 240, 255, 0.15);
+    --radius: 12px;
+    --radius-sm: 6px;
+    --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Animated Background --- */
+body {
+    background: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(138, 43, 226, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 51, 102, 0.03) 0%, transparent 70%);
+    background-attachment: fixed;
+}
+
+/* --- Grid Overlay --- */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- Floating Orbs --- */
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat 20s ease-in-out infinite;
+}
+.orb-1 { width: 400px; height: 400px; background: #00f0ff; top: -100px; left: -100px; animation-delay: 0s; }
+.orb-2 { width: 300px; height: 300px; background: #8a2be2; bottom: -50px; right: -50px; animation-delay: -7s; }
+.orb-3 { width: 200px; height: 200px; background: #ff3366; top: 50%; left: 60%; animation-delay: -13s; }
+
+@keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(50px, -30px) scale(1.1); }
+    50% { transform: translate(-30px, 50px) scale(0.9); }
+    75% { transform: translate(30px, 30px) scale(1.05); }
+}
+
+/* --- Navbar: Glassmorphism + Glow --- */
+.navbar {
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+}
+.logo-text { color: var(--text); }
+.logo-icon { color: var(--accent); }
+.nav-link { color: var(--text-secondary); }
+.nav-link:hover, .nav-link.active { color: var(--accent); }
+.nav-link::after { background: var(--accent); }
+.cart-count { background: var(--accent); color: #0a0a0f; }
+
+/* --- Hero: 3D Depth --- */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+    transform-style: preserve-3d;
+    animation: heroFloat 6s ease-in-out infinite;
+}
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0) rotateX(0deg); }
+    50% { transform: translateY(-10px) rotateX(1deg); }
+}
+.hero-badge {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    color: var(--accent);
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+}
+.hero-title {
+    background: linear-gradient(135deg, #e8e8f0 0%, #00f0ff 50%, #8a2be2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-subtitle { color: var(--text-secondary); }
+
+/* --- Buttons: 3D Push + Glow --- */
+.btn {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all var(--transition);
+}
+.btn-primary {
+    background: linear-gradient(135deg, #00f0ff, #00c8d4);
+    color: #0a0a0f;
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+}
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 240, 255, 0.5);
+}
+.btn-primary:active {
+    transform: translateY(0) scale(0.98);
+}
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+}
+
+/* --- Product Cards: 3D Tilt --- */
+.product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all var(--transition);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    position: relative;
+}
+.product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), transparent 50%, rgba(138, 43, 226, 0.1));
+    opacity: 0;
+    transition: opacity var(--transition);
+    z-index: 1;
+}
+.product-card:hover::before { opacity: 1; }
+.product-card:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: var(--shadow-hover), var(--glow);
+    border-color: rgba(0, 240, 255, 0.3);
+}
+.product-card:hover .product-image img {
+    transform: scale(1.08);
+}
+.product-image img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.product-badge {
+    background: rgba(0, 240, 255, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    z-index: 2;
+}
+.product-name { color: var(--text); }
+.product-desc { color: var(--text-secondary); }
+.product-price {
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+.add-to-cart {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+.add-to-cart:hover {
+    background: var(--accent);
+    color: #0a0a0f;
+    border-color: var(--accent);
+    box-shadow: var(--glow);
+}
+
+/* --- Category Cards: 3D Float --- */
+.category-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+}
+.category-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.05), transparent);
+    transition: left 0.6s ease;
+}
+.category-card:hover::after { left: 100%; }
+.category-card:hover {
+    transform: translateY(-5px) rotateX(3deg);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(0, 240, 255, 0.2);
+}
+.category-card h3 { color: var(--text); }
+.category-card p { color: var(--text-secondary); }
+
+/* --- Filter Buttons: Neon --- */
+.filter-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+.filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--glow);
+    background: rgba(0, 240, 255, 0.05);
+}
+
+/* --- Search Box: Glow Focus --- */
+.search-box input {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+.search-box input:focus {
+    border-color: var(--accent);
+    box-shadow: var(--glow);
+}
+.search-box input::placeholder { color: var(--text-dim); }
+
+/* --- Section Titles: Gradient Text --- */
+.section-title {
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.section-subtitle { color: var(--text-secondary); }
+
+/* --- Scroll Reveal Animation --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px) rotateX(5deg);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+}
+
+/* --- Steps: 3D Circles --- */
+.step-number {
+    background: linear-gradient(135deg, var(--accent), #8a2be2);
+    color: #0a0a0f;
+    box-shadow: var(--glow);
+    animation: stepPulse 3s ease-in-out infinite;
+}
+@keyframes stepPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 240, 255, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(0, 240, 255, 0.6); }
+}
+.step h3 { color: var(--text); }
+.step p { color: var(--text-secondary); }
+
+/* --- Cart Items: Glass --- */
+.cart-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+}
+.cart-item:hover {
+    border-color: rgba(0, 240, 255, 0.2);
+    box-shadow: var(--glow);
+}
+.cart-item-name { color: var(--text); }
+.cart-item-price { color: var(--text-secondary); }
+.cart-item-total { color: var(--accent); }
+
+/* --- Modals: Glassmorphism --- */
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+}
+.modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), var(--glow);
+}
+.modal-title { color: var(--text); }
+
+/* --- Form Inputs: Futuristic --- */
+.form-group label { color: var(--text-secondary); }
+.form-group input, .form-group textarea, .form-group select {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--accent);
+    box-shadow: var(--glow);
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-dim); }
+
+/* --- Confirmation: Glow Success --- */
+.confirmation-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+.confirmation-icon {
+    background: linear-gradient(135deg, var(--success), #00cc6a);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+    animation: successPulse 2s ease-in-out infinite;
+}
+@keyframes successPulse {
+    0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.4); }
+    50% { box-shadow: 0 0 60px rgba(0, 255, 136, 0.7); }
+}
+.confirmation-box h2 { color: var(--text); }
+.confirmation-id { color: var(--accent); }
+.confirmation-details {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+}
+.confirmation-details p { color: var(--text-secondary); }
+
+/* --- Admin Stats: 3D Cards --- */
+.admin-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+}
+.admin-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--glow);
+    border-color: rgba(0, 240, 255, 0.2);
+}
+.admin-stat .stat-num { color: var(--accent); }
+.admin-stat .stat-label { color: var(--text-dim); }
+
+/* --- Admin Orders: Glass --- */
+.admin-order {
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+.order-id { color: var(--accent); }
+.status-pending { background: rgba(255, 170, 0, 0.15); color: var(--warning); border: 1px solid rgba(255, 170, 0, 0.3); }
+.status-confirmed { background: rgba(0, 240, 255, 0.15); color: var(--accent); border: 1px solid rgba(0, 240, 255, 0.3); }
+.status-ordered { background: rgba(0, 255, 136, 0.15); color: var(--success); border: 1px solid rgba(0, 255, 136, 0.3); }
+.status-shipped { background: rgba(138, 43, 226, 0.15); color: #8a2be2; border: 1px solid rgba(138, 43, 226, 0.3); }
+
+/* --- Profile: 3D Avatar --- */
+.profile-avatar {
+    background: linear-gradient(135deg, var(--accent), #8a2be2);
+    color: #0a0a0f;
+    box-shadow: var(--glow);
+    animation: avatarFloat 4s ease-in-out infinite;
+}
+@keyframes avatarFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+.profile-header h1 { color: var(--text); }
+.profile-header p { color: var(--text-secondary); }
+.profile-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+.profile-section h2 { color: var(--text); }
+.profile-order {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+}
+
+/* --- Footer: Dark Glow --- */
+.footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+}
+.footer-col h4 { color: var(--text); }
+.footer-col a { color: var(--text-secondary); }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom p { color: var(--text-dim); }
+
+/* --- Toast: Glass --- */
+.toast {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    box-shadow: var(--glow);
+    backdrop-filter: blur(10px);
+}
+
+/* --- Scrollbar: Neon --- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--accent), #8a2be2);
+    border-radius: 4px;
+}
+
+/* --- Payment QR: Glow --- */
+.qr-image {
+    border: 2px solid rgba(0, 240, 255, 0.3);
+    box-shadow: var(--glow);
+    border-radius: var(--radius);
+}
+.payment-details {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+}
+.payment-warning { color: var(--warning); }
+
+/* --- Scroll Indicator: Animated --- */
+.scroll-line {
+    background: var(--accent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; height: 32px; }
+    50% { opacity: 1; height: 40px; }
+}

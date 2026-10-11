@@ -327,11 +327,11 @@ function generateUPIQr() {
     const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent(upiUrl);
     const container = document.getElementById("paymentSection");
     if (container) {
-        container.innerHTML = '<div class="payment-qr"><p class="payment-instruction">Tap the button below to pay with UPI</p><a href="' + upiUrl + '" class="btn btn-primary" style="display:block;text-align:center;margin-bottom:1rem;text-decoration:none">Pay with UPI</a><p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:1rem">Or scan this QR code from another device:</p><img src="' + qrUrl + '" alt="UPI QR Code" class="qr-image" style="width:180px;height:180px" /><div class="payment-details"><p><strong>Amount:</strong> ₹' + finalTotal.toFixed(2) + '</p><p><strong>UPI ID:</strong> ' + FAMPAY_UPI + '</p></div><p class="payment-warning">⚠️ Click "I Have Paid" only after you have sent the money.</p><button class="btn btn-primary" onclick="confirmPayment()">I Have Paid</button></div>';
+        container.innerHTML = '<div class="payment-qr"><p class="payment-instruction">Tap the button below to pay with UPI</p><a href="' + upiUrl + '" class="btn btn-primary" style="display:block;text-align:center;margin-bottom:1rem;text-decoration:none">Pay with UPI</a><p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:1rem">Or scan this QR code from another device:</p><img src="' + qrUrl + '" alt="UPI QR Code" class="qr-image" style="width:180px;height:180px" /><div class="payment-details"><p><strong>Amount:</strong> ₹' + finalTotal.toFixed(2) + '</p><p><strong>UPI ID:</strong> ' + FAMPAY_UPI + '</p></div><p class="payment-warning">⚠️ Click "I Have Paid" only after you have sent the money.</p><button class="btn btn-primary" onclick="confirmUserPayment()">I Have Paid</button></div>';
     }
 }
 
-function confirmPayment() {
+function confirmUserPayment() {
     const pending = window._pendingOrder;
     if (!pending) { showToast("Please fill the form first."); showCheckoutStep("form"); return; }
     // If user has saved UPI, skip the payment info form and finalize directly
