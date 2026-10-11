@@ -45,6 +45,7 @@ function initSpiral() {
     const bar = document.querySelector('.spiral-progress-bar');
     if (!section || !scene || cards.length === 0) return;
 
+    // Set initial positions explicitly
     cards.forEach((card) => {
         const angle = parseFloat(card.style.getPropertyValue('--angle')) || 0;
         const dist = parseFloat(card.style.getPropertyValue('--distance')) || 260;
@@ -57,18 +58,26 @@ function initSpiral() {
         });
     });
 
-    gsap.set(scene, { opacity: 1, y: 0 });
+    // Scene starts fully visible
+    gsap.set(scene, { opacity: 1, scale: 1, rotationY: 0, y: 0 });
 
-    gsap.to(scene, {
+    // Spiral rotates as you scroll (0% - 60%)
+    gsap.fromTo(scene, {
+        rotationY: 0, ease: 'none'
+    }, {
         rotationY: 120, ease: 'none',
         scrollTrigger: { trigger: section, start: 'top bottom', end: 'top top', scrub: 0.5 }
     });
 
+    // Cards spread out slightly
     cards.forEach((card) => {
         const angle = parseFloat(card.style.getPropertyValue('--angle')) || 0;
         const dist = parseFloat(card.style.getPropertyValue('--distance')) || 260;
         const rad = (angle * Math.PI) / 180;
-        gsap.to(card, {
+        gsap.fromTo(card, {
+            x: Math.cos(rad) * dist,
+            z: Math.sin(rad) * dist,
+        }, {
             x: Math.cos(rad) * dist * 1.15,
             z: Math.sin(rad) * dist * 1.15,
             ease: 'none',
@@ -76,10 +85,13 @@ function initSpiral() {
         });
     });
 
+    // Scene fades out at the very end
     gsap.to(scene, {
         opacity: 0, scale: 1.05, ease: 'power1.in',
         scrollTrigger: { trigger: section, start: 'top 20%', end: 'top top', scrub: 0.5 }
     });
+
+    ScrollTrigger.refresh();
 
     if (bar) {
         gsap.fromTo(bar, { scaleX: 0 }, {
