@@ -1168,3 +1168,178 @@ section {
 
 /* --- Action Buttons --- */
 .action-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* ============================================
+   SHOWCASE — Scroll-Driven Product Stacking
+   ============================================ */
+
+.showcase-section {
+    position: relative;
+    height: 400vh;
+    max-width: none;
+    padding: 0;
+}
+
+.showcase-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.showcase-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    z-index: 10;
+}
+
+.showcase-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.showcase-subtitle {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.showcase-cards {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 480px;
+    perspective: 1000px;
+}
+
+.showcase-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.1s linear, opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.showcase-card-image {
+    width: 100%;
+    height: 60%;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.showcase-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.showcase-card-content {
+    padding: 1.5rem;
+}
+
+.showcase-card-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+}
+
+.showcase-card-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.showcase-card-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.showcase-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.showcase-card-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.showcase-card-btn {
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease;
+}
+
+.showcase-card-btn:hover {
+    background: var(--accent-hover);
+}
+
+.showcase-progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    z-index: 10;
+}
+
+.showcase-progress-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.showcase-progress-dot.active {
+    background: var(--accent);
+    transform: scale(1.5);
+}
+
+@media (max-width: 768px) {
+    .showcase-cards {
+        max-width: 320px;
+        height: 420px;
+    }
+    .showcase-card-image {
+        height: 55%;
+    }
+    .showcase-card-content {
+        padding: 1.25rem;
+    }
+    .showcase-card-name {
+        font-size: 1.1rem;
+    }
+}

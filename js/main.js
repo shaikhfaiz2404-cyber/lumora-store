@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFromStorage();
     loadCustomProducts();
     renderProducts();
+    renderCart();
     setupNavigation();
     setupCart();
     setupCheckout();
