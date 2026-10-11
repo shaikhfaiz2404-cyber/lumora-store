@@ -1,138 +1,235 @@
 /* ============================================
-   LUMORA STORE — Premium Scroll Showcase
-   Smooth lerp, blur transitions, depth-based fade
+   LUMORA STORE — Cinematic Scroll Experience
+   GSAP ScrollTrigger + Lenis Smooth Scroll
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
-    const showcaseSection = document.getElementById('showcase');
-    const showcaseCards = document.getElementById('showcaseCards');
-    if (!showcaseSection || !showcaseCards) return;
+// Load GSAP + ScrollTrigger + Lenis from CDN
+const gsapCDN = document.createElement('script');
+gsapCDN.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+document.head.appendChild(gsapCDN);
 
-    const featuredProducts = [
-        { id: 'pc-001', name: 'Shockproof Armor Back Case', category: 'Phone Cases', price: 299,
-          image: 'https://images.unsplash.com/photo-1601593346740-925612772716?w=400&h=400&fit=crop',
-          description: 'Rugged shockproof TPU case with armor design. Universal fit for all smartphones.' },
-        { id: 'st-001', name: 'PRINTHUA Vinyl Stickers Pack', category: 'Stickers', price: 199,
-          image: 'https://images.unsplash.com/photo-1572375992501-4b0892d50c69?w=400&h=400&fit=crop',
-          description: 'Pack of 51 premium vinyl stickers. Waterproof, residue-free, reusable.' },
-        { id: 'led-001', name: 'Gesto 5 Meter Smart LED Strip', category: 'LED Lights', price: 899,
-          image: 'https://images.unsplash.com/photo-1550985616-10810253b84d?w=400&h=400&fit=crop',
-          description: '5 meter smart LED strip with music sync. Works with Alexa & Google Home.' },
-        { id: 'dk-001', name: 'MMTX XXL Gaming Mouse Mat', category: 'Desk Accessories', price: 399,
-          image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop',
-          description: 'XXL gaming mouse mat 80x40cm. Non-slip base, dual sided, waterproof.' }
-    ];
+const scrollTriggerCDN = document.createElement('script');
+scrollTriggerCDN.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
+document.head.appendChild(scrollTriggerCDN);
 
-    featuredProducts.forEach((product, i) => {
-        const card = document.createElement('div');
-        card.className = 'showcase-card';
-        card.innerHTML = `
-            <div class="showcase-card-image"><img src="${product.image}" alt="${product.name}" loading="lazy"></div>
-            <div class="showcase-card-content">
-                <span class="showcase-card-badge">${product.category}</span>
-                <h3 class="showcase-card-name">${product.name}</h3>
-                <p class="showcase-card-desc">${product.description}</p>
-                <div class="showcase-card-footer">
-                    <span class="showcase-card-price">₹${product.price}</span>
-                    <button class="showcase-card-btn" onclick="addToCart('${product.id}')">Add to Cart</button>
-                </div>
-            </div>`;
-        showcaseCards.appendChild(card);
-    });
+const lenisCDN = document.createElement('script');
+lenisCDN.src = 'https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js';
+document.head.appendChild(lenisCDN);
 
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'showcase-progress';
-    featuredProducts.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'showcase-progress-dot' + (i === 0 ? ' active' : '');
-        dotsContainer.appendChild(dot);
-    });
-    showcaseCards.appendChild(dotsContainer);
-
-    const cards = showcaseCards.querySelectorAll('.showcase-card');
-    const dots = showcaseCards.querySelectorAll('.showcase-progress-dot');
-    const total = cards.length;
-
-    let ticking = false;
-    let targetProgress = 0;
-    let currentProgress = 0;
-    let currentIndex = 0;
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
-
-    function updateShowcase() {
-        const rect = showcaseSection.getBoundingClientRect();
-        const sectionHeight = showcaseSection.offsetHeight - window.innerHeight;
-        targetProgress = Math.min(Math.max(-rect.top / sectionHeight, 0), 1);
-        currentProgress = lerp(currentProgress, targetProgress, 0.1);
-
-        const cardProgress = currentProgress * (total - 1);
-        const newIndex = Math.round(cardProgress);
-
-        if (newIndex !== currentIndex) {
-            currentIndex = newIndex;
-            dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
-        }
-
-        cards.forEach((card, i) => {
-            const rel = cardProgress - i;
-            const isActive = Math.abs(rel) < 0.5;
-
-            let targetScale, targetY, targetOpacity, targetRotate, targetBlur;
-            if (isActive) {
-                targetScale = 1; targetY = 0; targetOpacity = 1; targetRotate = 0; targetBlur = 0;
-            } else if (i < currentIndex) {
-                targetScale = 0.85; targetY = -40; targetOpacity = 0.12; targetRotate = -10; targetBlur = 3;
-            } else {
-                targetScale = 0.9; targetY = 60; targetOpacity = 0.4; targetRotate = 6; targetBlur = 1;
-            }
-
-            const cur = card._state || { scale: 0.9, y: 60, opacity: 0, rotate: 6, blur: 1 };
-            cur.scale = lerp(cur.scale, targetScale, 0.12);
-            cur.y = lerp(cur.y, targetY, 0.12);
-            cur.opacity = lerp(cur.opacity, targetOpacity, 0.12);
-            cur.rotate = lerp(cur.rotate, targetRotate, 0.12);
-            cur.blur = lerp(cur.blur, targetBlur, 0.12);
-            card._state = cur;
-
-            card.style.transform = `translateY(${cur.y}px) scale(${cur.scale}) rotateY(${cur.rotate}deg)`;
-            card.style.opacity = cur.opacity;
-            card.style.filter = cur.blur > 0.1 ? `blur(${cur.blur.toFixed(1)}px)` : 'none';
-            card.style.zIndex = total - i;
-        });
-
-        ticking = false;
-    }
-
-    function onScroll() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateShowcase);
-            ticking = true;
-        }
-    }
-
-    cards.forEach((card, i) => {
-        if (i === 0) {
-            card._state = { scale: 1, y: 0, opacity: 1, rotate: 0, blur: 0 };
-        } else {
-            card._state = { scale: 0.9, y: 60, opacity: 0, rotate: 6, blur: 1 };
-        }
-        const s = card._state;
-        card.style.transform = `translateY(${s.y}px) scale(${s.scale}) rotateY(${s.rotate}deg)`;
-        card.style.opacity = s.opacity;
-        card.style.filter = `blur(${s.blur}px)`;
-        card.style.zIndex = total - i;
-    });
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    updateShowcase();
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        window.removeEventListener('scroll', onScroll);
-        cards.forEach((card, i) => {
-            card.style.opacity = i === 0 ? '1' : '0';
-            card.style.transform = 'none';
-            card.style.filter = 'none';
-        });
-    }
+// Wait for all scripts to load
+Promise.all([
+    new Promise(r => gsapCDN.onload = r),
+    new Promise(r => scrollTriggerCDN.onload = r),
+    new Promise(r => lenisCDN.onload = r)
+]).then(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    initScrollExperience();
 });
+
+function initScrollExperience() {
+    // --- Lenis Smooth Scroll ---
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // --- Section 1: Hero Parallax ---
+    gsap.to('.hero-content', {
+        yPercent: -30,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+        }
+    });
+
+    // --- Section 2: Horizontal Product Reel ---
+    const reelSection = document.querySelector('.reel-section');
+    if (reelSection) {
+        const track = reelSection.querySelector('.reel-track');
+        const cards = reelSection.querySelectorAll('.reel-card');
+        const totalWidth = cards.length * 420 - window.innerWidth + 80;
+
+        gsap.to(track, {
+            x: () => -totalWidth,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: reelSection,
+                start: 'top top',
+                end: () => '+=' + totalWidth,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+            }
+        });
+
+        cards.forEach((card, i) => {
+            gsap.fromTo(card, {
+                scale: 0.85,
+                rotateY: -15,
+                opacity: 0.4,
+            }, {
+                scale: 1,
+                rotateY: 0,
+                opacity: 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: reelSection,
+                    start: () => `top-=${(i + 1) * 420} top`,
+                    end: () => `top-=${i * 420 + 200} top`,
+                    scrub: true,
+                }
+            });
+        });
+
+        gsap.fromTo('.reel-progress-bar', {
+            scaleX: 0,
+        }, {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: reelSection,
+                start: 'top top',
+                end: () => '+=' + totalWidth,
+                scrub: 0.3,
+            }
+        });
+    }
+
+    // --- Section 3: Product Zoom on Scroll ---
+    const zoomSection = document.querySelector('.zoom-section');
+    if (zoomSection) {
+        const zoomImage = zoomSection.querySelector('.zoom-image img');
+        const zoomText = zoomSection.querySelector('.zoom-text');
+
+        gsap.fromTo(zoomImage, {
+            scale: 1.3,
+        }, {
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: zoomSection,
+                start: 'top bottom',
+                end: 'top top',
+                scrub: 1,
+            }
+        });
+
+        gsap.fromTo(zoomText, {
+            clipPath: 'inset(0 100% 0 0)',
+            x: 60,
+        }, {
+            clipPath: 'inset(0 0% 0 0)',
+            x: 0,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: zoomSection,
+                start: 'top 70%',
+                end: 'top 30%',
+                scrub: 1,
+            }
+        });
+    }
+
+    // --- Section 4: Staggered Feature Reveal ---
+    const featuresSection = document.querySelector('.features-section');
+    if (featuresSection) {
+        const featureCards = featuresSection.querySelectorAll('.feature-card');
+
+        featureCards.forEach((card, i) => {
+            gsap.fromTo(card, {
+                y: 80,
+                opacity: 0,
+                rotateX: -10,
+            }, {
+                y: 0,
+                opacity: 1,
+                rotateX: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    end: 'top 50%',
+                    scrub: 1,
+                }
+            });
+        });
+
+        const title = featuresSection.querySelector('.section-title');
+        if (title) {
+            const letters = title.textContent.split('');
+            title.innerHTML = letters.map(l => '<span style="display:inline-block">' + l + '</span>').join('');
+            gsap.fromTo(title.children, {
+                y: 40,
+                opacity: 0,
+            }, {
+                y: 0,
+                opacity: 1,
+                stagger: 0.03,
+                duration: 0.6,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%',
+                    end: 'top 50%',
+                    scrub: 1,
+                }
+            });
+        }
+    }
+
+    // --- Section 5: CTA Parallax ---
+    const ctaSection = document.querySelector('.cta-section');
+    if (ctaSection) {
+        gsap.fromTo('.cta-bg', {
+            yPercent: -20,
+        }, {
+            yPercent: 20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: ctaSection,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+            }
+        });
+
+        gsap.fromTo('.cta-content', {
+            y: 60,
+            opacity: 0,
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: ctaSection,
+                start: 'top 70%',
+                end: 'top 40%',
+                scrub: 1,
+            }
+        });
+    }
+
+    // --- Navbar: hide on scroll down, show on scroll up ---
+    let lastScroll = 0;
+    const navbar = document.querySelector('.navbar');
+    lenis.on('scroll', ({ scroll }) => {
+        if (scroll > lastScroll && scroll > 100) {
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            navbar.style.transform = 'translateY(0)';
+        }
+        lastScroll = scroll;
+    });
+    navbar.style.transition = 'transform 0.3s ease';
+}
