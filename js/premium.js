@@ -1,19 +1,19 @@
 /* ============================================
-   LUMORA STORE — Minimal 3D Motion
-   Subtle, purposeful, premium
+   LUMORA STORE — Premium 3D Motion
+   Apple-inspired: subtle, purposeful, refined
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Scroll Reveal: Fade + Slide ---
+    // --- Scroll Reveal: Fade + Rise ---
     const revealElements = document.querySelectorAll(
         '.product-card, .category-card, .step, .section-header, .admin-stat, .profile-section'
     );
 
     revealElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(24px)';
-        el.style.transition = 'opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     });
 
     const observer = new IntersectionObserver((entries) => {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, {
         threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px'
+        rootMargin: '0px 0px -30px 0px'
     });
 
     revealElements.forEach(el => observer.observe(el));
@@ -38,11 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    if (window.scrollY > 40) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
+                    navbar.classList.toggle('scrolled', window.scrollY > 40);
                     ticking = false;
                 });
                 ticking = true;
@@ -59,8 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.requestAnimationFrame(() => {
                     const scrolled = window.scrollY;
                     if (scrolled < window.innerHeight) {
-                        heroContent.style.transform = `translateY(${scrolled * 0.15}px)`;
-                        heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+                        heroContent.style.transform = `translateY(${scrolled * 0.1}px)`;
+                        heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.4;
                     }
                     ticking = false;
                 });
@@ -69,15 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Product Cards: Subtle Hover Lift ---
+    // --- Product Cards: Subtle 3D Tilt on Hover ---
     document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease, border-color 0.35s ease';
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / centerY * -3;
+            const rotateY = (x - centerX) / centerX * 3;
+            card.style.transform = `translateY(-4px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
         card.addEventListener('mouseleave', () => {
             card.style.transform = '';
-            card.style.boxShadow = '';
-            card.style.borderColor = '';
         });
     });
 
@@ -100,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         revealElements.forEach(el => {
             el.style.opacity = '1';
             el.style.transform = 'none';
-            el.style.transition = 'none';
         });
         if (heroContent) {
             heroContent.style.transform = '';
