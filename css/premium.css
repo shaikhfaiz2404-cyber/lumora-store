@@ -1635,7 +1635,7 @@ section {
 
 .spiral-section {
     position: relative;
-    height: 400vh;
+    height: 250vh;
     max-width: none;
     padding: 0;
     overflow: hidden;
@@ -1808,4 +1808,36 @@ section {
         width: 140px;
         height: 140px;
     }
+}
+
+/* ============================================
+   LUMORA LOGO — Golden Sunrise
+   ============================================ */
+
+.logo-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon svg {
+    width: 64px;
+    height: 40px;
+    filter: drop-shadow(0 2px 8px rgba(245, 200, 66, 0.3));
+}
+
+.logo-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    background: linear-gradient(180deg, #E8E8E8 0%, #C0C0C0 50%, #A0A0A0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.spiral-center-inner {
+    background: #0a0a0a !important;
+    border: none !important;
 }
