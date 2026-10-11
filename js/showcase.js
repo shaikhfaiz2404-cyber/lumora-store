@@ -1,6 +1,6 @@
 /* ============================================
-   LUMORA STORE — Spiral Showcase (v3)
-   Fixed: execute immediately, no DOMContentLoaded
+   LUMORA STORE — Spiral Showcase (v4)
+   True 3D helix (horizontal + vertical)
    ============================================ */
 
 const gsapCDN = document.createElement('script');
@@ -45,47 +45,51 @@ function initSpiral() {
     const bar = document.querySelector('.spiral-progress-bar');
     if (!section || !scene || cards.length === 0) return;
 
-    // Set initial positions explicitly
-    cards.forEach((card) => {
+    // 3D helix: horizontal ring + vertical stagger
+    const yOffsets = [-60, 0, 60, -60, 0, 60, 30, -30, 30, -30, 30, -30];
+
+    cards.forEach((card, i) => {
         const angle = parseFloat(card.style.getPropertyValue('--angle')) || 0;
         const dist = parseFloat(card.style.getPropertyValue('--distance')) || 260;
         const rad = (angle * Math.PI) / 180;
+        const yOff = yOffsets[i] || 0;
         gsap.set(card, {
             x: Math.cos(rad) * dist,
-            y: 0,
+            y: yOff,
             z: Math.sin(rad) * dist,
             opacity: 1, scale: 1, rotateY: 0, rotateX: 0
         });
     });
 
-    // Scene starts fully visible
-    gsap.set(scene, { opacity: 1, scale: 1, rotationY: 0, y: 0 });
+    gsap.set(scene, { opacity: 1, scale: 1, rotationY: 0, rotationX: 0, y: 0 });
 
-    // Spiral rotates as you scroll (0% - 60%)
+    // Helix rotates on both axes
     gsap.fromTo(scene, {
-        rotationY: 0, ease: 'none'
+        rotationY: 0, rotationX: 0, ease: 'none'
     }, {
-        rotationY: 120, ease: 'none',
+        rotationY: 120, rotationX: 15, ease: 'none',
         scrollTrigger: { trigger: section, start: 'top bottom', end: 'top top', scrub: 0.5 }
     });
 
-    // Cards spread out slightly
-    cards.forEach((card) => {
+    // Cards spread + vertical wave
+    cards.forEach((card, i) => {
         const angle = parseFloat(card.style.getPropertyValue('--angle')) || 0;
         const dist = parseFloat(card.style.getPropertyValue('--distance')) || 260;
         const rad = (angle * Math.PI) / 180;
+        const yOff = yOffsets[i] || 0;
         gsap.fromTo(card, {
             x: Math.cos(rad) * dist,
+            y: yOff,
             z: Math.sin(rad) * dist,
         }, {
             x: Math.cos(rad) * dist * 1.15,
+            y: yOff * 1.3,
             z: Math.sin(rad) * dist * 1.15,
             ease: 'none',
             scrollTrigger: { trigger: section, start: 'top 60%', end: 'top 10%', scrub: 0.5 }
         });
     });
 
-    // Scene fades out at the very end
     gsap.to(scene, {
         opacity: 0, scale: 1.05, ease: 'power1.in',
         scrollTrigger: { trigger: section, start: 'top 20%', end: 'top top', scrub: 0.5 }
