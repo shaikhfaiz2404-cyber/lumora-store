@@ -33,87 +33,75 @@
         </div>
         <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
     </section>
-    <!-- Horizontal Product Reel -->
-    <section class="reel-section">
-        <div class="reel-header">
+    <!-- Spiral Showcase -->
+    <section class="spiral-section">
+        <div class="spiral-header">
             <h2 class="section-title">Featured Products</h2>
             <p class="section-subtitle">Scroll to explore our curated collection</p>
         </div>
-        <div class="reel-track">
-            <div class="reel-card">
-                <div class="reel-card-image"><img src="https://images.unsplash.com/photo-1601593346740-925612772716?w=400&h=400&fit=crop" alt="Armor Case"></div>
-                <div class="reel-card-content">
-                    <span class="reel-card-badge">Phone Cases</span>
-                    <h3 class="reel-card-name">Shockproof Armor Back Case</h3>
-                    <p class="reel-card-desc">Rugged shockproof TPU case with armor design.</p>
-                    <div class="reel-card-footer">
-                        <span class="reel-card-price">₹299</span>
-                        <button class="reel-card-btn" onclick="addToCart('pc-001')">Add to Cart</button>
+        <div class="spiral-container">
+            <div class="spiral-scene" id="spiralScene">
+                <div class="spiral-ring" data-ring="0">
+                    <div class="spiral-card" style="--angle:0deg; --distance:280px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1601593346740-925612772716?w=400&h=400&fit=crop" alt="Armor Case"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Phone Cases</span><h3>Armor Case</h3><span class="spiral-card-price">₹299</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:60deg; --distance:280px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400&h=400&fit=crop" alt="Eagle Cover"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Phone Cases</span><h3>Eagle Cover</h3><span class="spiral-card-price">₹249</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:120deg; --distance:280px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1541877944-ac82a091518a?w=400&h=400&fit=crop" alt="Slim Cover"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Phone Cases</span><h3>Slim Cover</h3><span class="spiral-card-price">₹199</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:180deg; --distance:280px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1572375992501-4b0892d50c69?w=400&h=400&fit=crop" alt="Stickers"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Stickers</span><h3>Stickers 51</h3><span class="spiral-card-price">₹199</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:240deg; --distance:280px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=400&h=400&fit=crop" alt="Avengers"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Stickers</span><h3>Avengers Wrap</h3><span class="spiral-card-price">₹249</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:300deg; --distance:280px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1572375992501-4b0892d50c69?w=400&h=400&fit=crop" alt="Stickers 52"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Stickers</span><h3>Stickers 52</h3><span class="spiral-card-price">₹149</span></div>
                     </div>
                 </div>
-            </div>
-            <div class="reel-card">
-                <div class="reel-card-image"><img src="https://images.unsplash.com/photo-1572375992501-4b0892d50c69?w=400&h=400&fit=crop" alt="Stickers"></div>
-                <div class="reel-card-content">
-                    <span class="reel-card-badge">Stickers</span>
-                    <h3 class="reel-card-name">PRINTHUA Vinyl Stickers Pack</h3>
-                    <p class="reel-card-desc">Pack of 51 premium vinyl stickers. Waterproof.</p>
-                    <div class="reel-card-footer">
-                        <span class="reel-card-price">₹199</span>
-                        <button class="reel-card-btn" onclick="addToCart('st-001')">Add to Cart</button>
+                <div class="spiral-ring" data-ring="1">
+                    <div class="spiral-card" style="--angle:30deg; --distance:240px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=400&h=400&fit=crop" alt="LED Strip"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">LED Lights</span><h3>Gesto LED 5M</h3><span class="spiral-card-price">₹899</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:90deg; --distance:240px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=400&h=400&fit=crop" alt="LED RGB"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">LED Lights</span><h3>RGB LED 5M</h3><span class="spiral-card-price">₹649</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:150deg; --distance:240px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=400&h=400&fit=crop" alt="Neon LED"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">LED Lights</span><h3>Neon LED 5M</h3><span class="spiral-card-price">₹799</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:210deg; --distance:240px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop" alt="Mouse Mat"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Desk</span><h3>Mouse Mat XXL</h3><span class="spiral-card-price">₹399</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:270deg; --distance:240px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=400&fit=crop" alt="Mobile Holder"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Desk</span><h3>Mobile Holder</h3><span class="spiral-card-price">₹249</span></div>
+                    </div>
+                    <div class="spiral-card" style="--angle:330deg; --distance:240px;">
+                        <div class="spiral-card-img"><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop" alt="Deskmat"></div>
+                        <div class="spiral-card-info"><span class="spiral-card-cat">Desk</span><h3>Deskmat XXL</h3><span class="spiral-card-price">₹899</span></div>
                     </div>
                 </div>
-            </div>
-            <div class="reel-card">
-                <div class="reel-card-image"><img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=400&h=400&fit=crop" alt="LED Strip"></div>
-                <div class="reel-card-content">
-                    <span class="reel-card-badge">LED Lights</span>
-                    <h3 class="reel-card-name">Gesto 5 Meter Smart LED Strip</h3>
-                    <p class="reel-card-desc">5 meter smart LED strip with music sync.</p>
-                    <div class="reel-card-footer">
-                        <span class="reel-card-price">₹899</span>
-                        <button class="reel-card-btn" onclick="addToCart('led-001')">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="reel-card">
-                <div class="reel-card-image"><img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop" alt="Mouse Mat"></div>
-                <div class="reel-card-content">
-                    <span class="reel-card-badge">Desk Accessories</span>
-                    <h3 class="reel-card-name">MMTX XXL Gaming Mouse Mat</h3>
-                    <p class="reel-card-desc">XXL gaming mouse mat 80x40cm. Non-slip base.</p>
-                    <div class="reel-card-footer">
-                        <span class="reel-card-price">₹399</span>
-                        <button class="reel-card-btn" onclick="addToCart('dk-001')">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="reel-card">
-                <div class="reel-card-image"><img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400&h=400&fit=crop" alt="Eagle Cover"></div>
-                <div class="reel-card-content">
-                    <span class="reel-card-badge">Phone Cases</span>
-                    <h3 class="reel-card-name">Transparent Eagle Cover</h3>
-                    <p class="reel-card-desc">Clear transparent case with eagle design.</p>
-                    <div class="reel-card-footer">
-                        <span class="reel-card-price">₹249</span>
-                        <button class="reel-card-btn" onclick="addToCart('pc-002')">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="reel-card">
-                <div class="reel-card-image"><img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=400&fit=crop" alt="Mobile Holder"></div>
-                <div class="reel-card-content">
-                    <span class="reel-card-badge">Desk Accessories</span>
-                    <h3 class="reel-card-name">Ambrane Twistand Mobile Holder</h3>
-                    <p class="reel-card-desc">Foldable mobile holder with twist design.</p>
-                    <div class="reel-card-footer">
-                        <span class="reel-card-price">₹249</span>
-                        <button class="reel-card-btn" onclick="addToCart('dk-002')">Add to Cart</button>
+                <div class="spiral-center">
+                    <div class="spiral-center-inner">
+                        <span class="spiral-center-icon">◈</span>
+                        <span class="spiral-center-text">LUMORA</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="reel-progress"><div class="reel-progress-bar"></div></div>
+        <div class="spiral-progress"><div class="spiral-progress-bar"></div></div>
     </section>
 
     <!-- Zoom Section -->

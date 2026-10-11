@@ -1628,3 +1628,184 @@ section {
         grid-template-columns: 1fr;
     }
 }
+
+/* ============================================
+   SPIRAL SHOWCASE — Scroll-Driven Helix
+   ============================================ */
+
+.spiral-section {
+    position: relative;
+    height: 400vh;
+    max-width: none;
+    padding: 0;
+    overflow: hidden;
+    background: var(--surface);
+}
+
+.spiral-header {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.spiral-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.spiral-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.spiral-ring {
+    position: absolute;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+}
+
+.spiral-card {
+    position: absolute;
+    width: 260px;
+    height: 340px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    left: 50%;
+    top: 50%;
+    margin-left: -130px;
+    margin-top: -170px;
+    opacity: 0;
+}
+
+.spiral-card-img {
+    width: 100%;
+    height: 60%;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.spiral-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.spiral-card-info {
+    padding: 1rem;
+}
+
+.spiral-card-cat {
+    display: inline-block;
+    font-size: 0.6rem;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.spiral-card-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+}
+
+.spiral-card-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.spiral-center {
+    position: relative;
+    z-index: 5;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spiral-center-inner {
+    width: 100%;
+    height: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.spiral-center-icon {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+}
+
+.spiral-center-text {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text);
+}
+
+.spiral-progress {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.spiral-progress-bar {
+    width: 100%;
+    height: 100%;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(0);
+}
+
+@media (max-width: 768px) {
+    .spiral-card {
+        width: 220px;
+        height: 300px;
+        margin-left: -110px;
+        margin-top: -150px;
+    }
+    .spiral-center {
+        width: 140px;
+        height: 140px;
+    }
+}
